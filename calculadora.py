@@ -181,3 +181,22 @@ def mostrar_menu():
         except KeyboardInterrupt:
             print("\n👋 ¡Hasta luego!")
             return None
+
+def generar_y_mostrar_tarjetas(bingo_objeto, cantidad=1):
+    """
+    Genera y muestra una o más tarjetas de bingo.
+    
+    Args:
+        bingo_objeto (GeneradorBingo): El objeto configurado
+        cantidad (int): Número de tarjetas a generar
+    """
+    for i in range(cantidad):
+        print(f"\n{'='*20} TARJETA {i+1} {'='*20}")
+        tarjeta = bingo_objeto.generar_tarjeta()
+        bingo_objeto.mostrar_tarjeta(tarjeta)
+        print(f"¿Tarjeta válida? {'✓ SÍ' if bingo_objeto.validar_tarjeta(tarjeta) else '❌ NO'}")
+        
+        if i < cantidad - 1:  # No preguntar en la última tarjeta
+            continuar = input("\nPresiona Enter para la siguiente tarjeta o 'q' para terminar: ")
+            if continuar.lower() == 'q':
+                break
