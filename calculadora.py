@@ -51,57 +51,57 @@ class GeneradorBingo:
         
         return tarjeta
 
-        def mostrar_tarjeta(self, tarjeta):
-            """
-            Muestra la tarjeta de forma bonita en consola.
-            
-            Args:
-                tarjeta (list): Matriz 5x5 con los números de la tarjeta
-            """
-            # Mostrar encabezado con las letras
-            print("  " + "  ".join(self.palabra))
-            print("-" * 21)
-            
-            # Mostrar cada fila
-            for fila in tarjeta:
-                fila_formateada = []
-                for numero in fila:
-                    if numero == "LIBRE":
-                        fila_formateada.append("LIBRE")
-                    else:
-                        fila_formateada.append(f"{numero:2d}")
-                print("| " + " | ".join(fila_formateada) + " |")
-            
-            print("-" * 21)
+    def mostrar_tarjeta(self, tarjeta):
+        """
+        Muestra la tarjeta de forma bonita en consola.
         
-        def validar_tarjeta(self, tarjeta):
-            """
-            Valida que una tarjeta sea correcta según las reglas del juego.
+        Args:
+            tarjeta (list): Matriz 5x5 con los números de la tarjeta
+        """
+        # Mostrar encabezado con las letras
+        print("  " + "  ".join(self.palabra))
+        print("-" * 21)
+        
+        # Mostrar cada fila
+        for fila in tarjeta:
+            fila_formateada = []
+            for numero in fila:
+                if numero == "LIBRE":
+                    fila_formateada.append("LIBRE")
+                else:
+                    fila_formateada.append(f"{numero:2d}")
+            print("| " + " | ".join(fila_formateada) + " |")
+        
+        print("-" * 21)
+    
+    def validar_tarjeta(self, tarjeta):
+        """
+        Valida que una tarjeta sea correcta según las reglas del juego.
+        
+        Args:
+            tarjeta (list): Matriz 5x5 con los números de la tarjeta
             
-            Args:
-                tarjeta (list): Matriz 5x5 con los números de la tarjeta
+        Returns:
+            bool: True si la tarjeta es válida, False en caso contrario
+        """
+        todos_los_numeros = []
+        
+        for columna in range(5):
+            inicio = columna * self.rango_por_columna + 1
+            fin = (columna + 1) * self.rango_por_columna
+            
+            for fila in range(5):
+                numero = tarjeta[fila][columna]
                 
-            Returns:
-                bool: True si la tarjeta es válida, False en caso contrario
-            """
-            todos_los_numeros = []
-            
-            for columna in range(5):
-                inicio = columna * self.rango_por_columna + 1
-                fin = (columna + 1) * self.rango_por_columna
+                # Saltar el espacio libre
+                if numero == "LIBRE":
+                    continue
                 
-                for fila in range(5):
-                    numero = tarjeta[fila][columna]
-                    
-                    # Saltar el espacio libre
-                    if numero == "LIBRE":
-                        continue
-                    
-                    # Verificar que el número esté en el rango correcto
-                    if numero < inicio or numero > fin:
-                        return False
-                    
-                    todos_los_numeros.append(numero)
-            
-            # Verificar que no haya números duplicados
-            return len(todos_los_numeros) == len(set(todos_los_numeros))
+                # Verificar que el número esté en el rango correcto
+                if numero < inicio or numero > fin:
+                    return False
+                
+                todos_los_numeros.append(numero)
+        
+        # Verificar que no haya números duplicados
+        return len(todos_los_numeros) == len(set(todos_los_numeros))
