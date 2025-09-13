@@ -200,3 +200,33 @@ def generar_y_mostrar_tarjetas(bingo_objeto, cantidad=1):
             continuar = input("\nPresiona Enter para la siguiente tarjeta o 'q' para terminar: ")
             if continuar.lower() == 'q':
                 break
+
+# Programa principal
+if __name__ == "__main__":
+    while True:
+        # Mostrar menú y obtener configuración
+        bingo = mostrar_menu()
+        
+        # Si el usuario escogió salir
+        if bingo is None:
+            break
+            
+        # Preguntar cuántas tarjetas generar
+        try:
+            cantidad = int(input("\n¿Cuántas tarjetas quieres generar? (1-5): "))
+            if cantidad < 1 or cantidad > 5:
+                print("Generando 1 tarjeta por defecto...")
+                cantidad = 1
+        except ValueError:
+            print("Generando 1 tarjeta por defecto...")
+            cantidad = 1
+        
+        # Generar y mostrar las tarjetas
+        generar_y_mostrar_tarjetas(bingo, cantidad)
+        
+        # Preguntar si quiere continuar
+        print("\n" + "="*50)
+        continuar = input("¿Quieres generar más tarjetas? (s/n): ").lower().strip()
+        if continuar not in ['s', 'si', 'sí', 'y', 'yes']:
+            print("👋 ¡Gracias por usar el generador de Bingo!")
+            break            
