@@ -105,3 +105,79 @@ class GeneradorBingo:
         
         # Verificar que no haya números duplicados
         return len(todos_los_numeros) == len(set(todos_los_numeros))
+
+
+def crear_bingo_personalizado():
+    """
+    Función para crear un bingo con configuración personalizada del usuario.
+    
+    Returns:
+        GeneradorBingo: Objeto configurado según las preferencias del usuario
+    """
+    print("\n=== CONFIGURAR BINGO PERSONALIZADO ===")
+    
+    while True:
+        try:
+            palabra = input("Ingresa una palabra de 5 letras únicas (ej: BINGO, PLENO, LUCKY): ").upper().strip()
+            numero_max = int(input("Ingresa el número máximo (50, 55, 60, 65, 70, 75, 80, 85, 90): "))
+            
+            # Intentar crear el objeto con los parámetros del usuario
+            bingo = GeneradorBingo(palabra, numero_max)
+            print(f"✓ Bingo configurado: {palabra} con números hasta {numero_max}")
+            return bingo
+            
+        except ValueError as e:
+            print(f"❌ Error: {e}")
+            print("Por favor, inténtalo de nuevo...\n")
+
+def crear_bingo_aleatorio():
+    """
+    Función para crear un bingo con configuración aleatoria.
+    
+    Returns:
+        GeneradorBingo: Objeto con configuración aleatoria
+    """
+    # Palabras válidas para escoger aleatoriamente
+    palabras_validas = ["BINGO", "PLENO", "LUCKY", "MONEY", "PRIZE"]
+    numeros_validos = [50, 55, 60, 65, 70, 75, 80, 85, 90]
+    
+    palabra_random = random.choice(palabras_validas)
+    numero_random = random.choice(numeros_validos)
+    
+    bingo = GeneradorBingo(palabra_random, numero_random)
+    print(f"🎲 Configuración aleatoria: {palabra_random} con números hasta {numero_random}")
+    return bingo
+
+def mostrar_menu():
+    """
+    Muestra el menú principal y maneja la selección del usuario.
+    """
+    print("=" * 50)
+    print("🎯 GENERADOR DE TARJETAS DE BINGO 🎯")
+    print("=" * 50)
+    print("1. Configuración personalizada")
+    print("2. Configuración aleatoria")
+    print("3. Usar configuración clásica (BINGO - 75)")
+    print("4. Salir")
+    print("-" * 50)
+    
+    while True:
+        try:
+            opcion = input("Selecciona una opción (1-4): ").strip()
+            
+            if opcion == "1":
+                return crear_bingo_personalizado()
+            elif opcion == "2":
+                return crear_bingo_aleatorio()
+            elif opcion == "3":
+                print("📋 Usando configuración clásica: BINGO con 75 números")
+                return GeneradorBingo()
+            elif opcion == "4":
+                print("👋 ¡Gracias por usar el generador de Bingo!")
+                return None
+            else:
+                print("❌ Opción no válida. Por favor, selecciona 1, 2, 3 o 4.")
+                
+        except KeyboardInterrupt:
+            print("\n👋 ¡Hasta luego!")
+            return None
